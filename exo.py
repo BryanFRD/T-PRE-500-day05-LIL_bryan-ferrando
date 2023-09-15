@@ -59,10 +59,10 @@ print(magic[2])
 
 import time, random
 
-starting_time = time.time()
+starting_time = time.perf_counter()
 l = []
 for i in range(0, 1_000_000):
   l.append(random.random())
 l.sort()
-print(time.time() - starting_time)
+print(f"Elapsed time: {(time.perf_counter() - starting_time):.6f} seconds")
 
