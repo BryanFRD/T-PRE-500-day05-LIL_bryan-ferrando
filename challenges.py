@@ -31,9 +31,11 @@ grade_weight_mapping = {
   "E": 0
 }
 
+gp = 0
 for g in student["units"]:
-  student["total_credits"] += grade_weight_mapping[g["grade"]]
-student["GPA"] = format(student["total_credits"] / len(student["units"]), ".2f")
+  student["total_credits"] += g["credits"]
+  gp += grade_weight_mapping[g["grade"]]
+student["GPA"] = format(gp / len(student["units"]), ".2f")
   
 print(student["total_credits"])
 print(student["GPA"])
