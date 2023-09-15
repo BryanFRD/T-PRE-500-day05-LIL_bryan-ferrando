@@ -59,10 +59,28 @@ print(magic[2])
 
 import time, random
 
-starting_time = time.perf_counter()
+r_starting_time = time.time()
 l = []
 for i in range(0, 1_000_000):
-  l.append(random.random())
-l.sort()
-print(f"Elapsed time: {(time.perf_counter() - starting_time):.6f} seconds")
+  l.append(random.randint(0, 1_000_000))
+r_time = time.time() - r_starting_time
+print(f"Random generation time: {r_time*1000:.3f} ms")
 
+#l = [9, 1, 3]
+
+s_starting_time = time.time()
+def s(ls):
+  for i in range(1, len(ls)):
+    for j in range(i-1, -1, -1):
+      if ls[i] < ls[j]:
+        t = ls[i], ls[j]
+        ls[j], ls[i] = t
+        break
+        
+  return ls
+
+l = s(l)
+s_time = time.time() - s_starting_time
+print(f"Sorting time: {s_time*1000:.3f} ms")
+print(f"Total time: {(r_time + s_time)*1000:.3f} ms")
+print(l)
