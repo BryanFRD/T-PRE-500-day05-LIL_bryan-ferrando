@@ -63,6 +63,6 @@ starting_time = time.time()
 l = []
 for i in range(0, 1_000_000):
   l.append(random.random())
-
+l.sort()
 print(time.time() - starting_time)
 
