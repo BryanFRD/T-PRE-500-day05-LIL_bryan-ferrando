@@ -66,21 +66,41 @@ for i in range(0, 1_000_000):
 r_time = time.time() - r_starting_time
 print(f"Random generation time: {r_time*1000:.3f} ms")
 
-#l = [9, 1, 3]
+l = [9, 1, 3, 2, 6, 7, 8, 4, 5]
 
 s_starting_time = time.time()
-def s(ls):
-  for i in range(1, len(ls)):
-    for j in range(i-1, -1, -1):
-      if ls[i] < ls[j]:
-        t = ls[i], ls[j]
-        ls[j], ls[i] = t
-        break
-        
-  return ls
 
-l = s(l)
+def merge_sort(ls):
+  if len(ls) <= 1:
+    return ls
+  lft = []
+  rgt = []
+  for i in range(len(ls)):
+    t = ls[i]
+    if i < (len(ls) / 2):
+      lft.append(t)
+    else:
+      rgt.append(t)
+      
+  lft = merge_sort(lft)
+  rgt = merge_sort(rgt)
+    
+  r = []
+  while lft and rgt:
+    if lft[0] <= rgt[0]:
+      r.append(lft[0])
+      lft.pop(0)
+    else:
+      r.append(rgt[0])
+      rgt.pop(0)
+  
+  r.extend(lft)
+  r.extend(rgt)
+  
+  return r
+  
+l = merge_sort(l)
 s_time = time.time() - s_starting_time
 print(f"Sorting time: {s_time*1000:.3f} ms")
 print(f"Total time: {(r_time + s_time)*1000:.3f} ms")
-print(l)
+print(*l)
